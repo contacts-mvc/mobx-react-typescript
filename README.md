@@ -1,4 +1,4 @@
-# Contacts MVC MBox/React
+# Contacts MVC MobX/React
 
 ⚠️ Under Development
 
