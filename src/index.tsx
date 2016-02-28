@@ -7,6 +7,7 @@ import {observer} from 'mobx-react';
 import {ContactList} from './components/ContactList';
 import {ContactDetails} from './components/ContactDetails';
 import {SearchBox} from './components/SearchBox';
+import Contact from './interfaces/Contact';
 
 import CONTACTS from './contacts.data';
 
@@ -22,6 +23,23 @@ export class AppState {
     constructor() {
       this.contacts = CONTACTS;
       this.selectedContact = this.contacts[0];
+    }
+
+    performSearch(query: string) {
+      this.searchQuery = query;
+
+      this.contacts = CONTACTS.filter(contact=> match(contact, query));
+      this.selectedContact = this.contacts[0] || null;
+
+      /**
+       * @param  {Contact} contact
+       * @param  {string} query
+       * @returns boolean
+       */
+      function match(contact:Contact, query: string): boolean {
+        return (contact.firstName && contact.firstName.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1) ||
+          (contact.lastName && contact.lastName.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1);
+      }
     }
 }
 
