@@ -25,7 +25,7 @@
   },
   "homepage": "http://mobxjs.github.com/mobx",
   "devDependencies": {
-    "react-hot-loader": "^1.2.7",
+    "react-hot-loader": "^2.0.0-alpha-4",
     "ts-loader": "^0.8.1",
     "typescript": "^1.8.2",
     "webpack": "^1.9.6",
