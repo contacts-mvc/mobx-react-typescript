@@ -1,5 +1,7 @@
 import {Component} from 'react';
 import * as React from 'react';
+import {observer} from 'mobx-react';
+import {computed} from 'mobx';
 
 import Contact from '../../interfaces/Contact';
 
@@ -15,7 +17,10 @@ class Divider {
   }
 }
 
+@observer
 export class ContactList extends Component<{appState: AppState}, {}> {
+
+  @computed
   get contactsAndDividers(): Array<any> {
     const contacts = this.props.appState.contacts;
     const result: Array<any> = [];
