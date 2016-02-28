@@ -9,13 +9,19 @@ import {ProfilePicture} from './ProfilePicture';
 @observer
 export class ContactDetails extends Component<{selectedContact: Contact}, {}> {
   render() {
+    const contact = this.props.selectedContact;
+
+    if (!contact) {
+      return <div className="details"></div>
+    }
+
     return (
       <div className="details">
         <header>
-          <ProfilePicture contact={this.props.selectedContact} />
+          <ProfilePicture contact={contact} />
           <div className="title">
-            <h1 className="name">{this.props.selectedContact.firstName}&nbsp;{this.props.selectedContact.lastName}</h1>
-            <div className="subtitle">{this.props.selectedContact.nickName}</div>
+            <h1 className="name">{contact.firstName}&nbsp;{contact.lastName}</h1>
+            <div className="subtitle">{contact.nickName}</div>
           </div>
         </header>
         <table>
