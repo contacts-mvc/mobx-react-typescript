@@ -1,10 +1,12 @@
 import * as React from 'react';
 import {Component} from 'react';
+import {observer} from 'mobx-react';
 
 import Contact from '../../interfaces/Contact';
 
 import {ProfilePicture} from './ProfilePicture';
 
+@observer
 export class ContactDetails extends Component<{selectedContact: Contact}, {}> {
   render() {
     return (
@@ -13,9 +15,7 @@ export class ContactDetails extends Component<{selectedContact: Contact}, {}> {
           <ProfilePicture contact={this.props.selectedContact} />
           <div className="title">
             <h1 className="name">{this.props.selectedContact.firstName}&nbsp;{this.props.selectedContact.lastName}</h1>
-            <div className="subtitle">{
-                //this.props.selectedContact.nickName
-            }</div>
+            <div className="subtitle">{this.props.selectedContact.nickName}</div>
           </div>
         </header>
         <table>
