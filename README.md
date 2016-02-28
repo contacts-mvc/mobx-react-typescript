@@ -1,8 +1,8 @@
-# React-TypeScript
+# Contacts MVC MBox/React
 
-Minimal boilerplate for a single-page app using MobX, React and TypeScript with TSX.
+⚠️ Under Development
 
-Initial run:
+##Initial run:
 
 * Install Node.js
 * `npm install`
