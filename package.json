@@ -1,0 +1,45 @@
+{
+  "name": "mobx-react-typescript-boilerplate",
+  "version": "1.0.0",
+  "description": "Boilerplate for MobX + React project with Typescript, ES6 compilation and hot code reloading",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mobxjs/mobx-react-typescript-boilerplate.git"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "boilerplate",
+    "mobx",
+    "starter-kit"
+  ],
+  "authors": [
+    "Mohsen Azimi <me@azimi.me>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mobxjs/mobx/issues"
+  },
+  "homepage": "http://mobxjs.github.com/mobx",
+  "devDependencies": {
+    "react-hot-loader": "^1.2.7",
+    "ts-loader": "^0.8.1",
+    "typescript": "^1.8.2",
+    "webpack": "^1.9.6",
+    "webpack-dev-server": "^1.8.2"
+  },
+  "dependencies": {
+    "classnames": "^2.2.3",
+    "contacts-mvc-css": "^1.3.0",
+    "mobx": "^2.0.0",
+    "mobx-react": "^3.0.0",
+    "mobx-react-devtools": "^4.0.0",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "reset-css": "^2.0.2011012603",
+    "style-loader": "^0.13.0"
+  }
+}
