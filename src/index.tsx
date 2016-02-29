@@ -16,30 +16,38 @@ declare const require;
 const DevTools = require('mobx-react-devtools').default;
 
 export class AppState {
-    @observable contacts = [];
+    @observable private _selectedContact = null;
+    @observable contacts = CONTACTS;
     @observable searchQuery: string = '';
-    @observable selectedContact: any;
 
     constructor() {
       this.contacts = CONTACTS;
-      this.selectedContact = this.contacts[0];
     }
 
-    performSearch(query: string) {
-      this.searchQuery = query;
+    @computed
+    get filteredContacts() {
+      if (!this.searchQuery) {
+        return this.contacts;
+      }
 
-      this.contacts = CONTACTS.filter(contact=> match(contact, query));
-      this.selectedContact = this.contacts[0] || null;
+      return this.contacts.filter(contact=> match(contact, this.searchQuery));
 
-      /**
-       * @param  {Contact} contact
-       * @param  {string} query
-       * @returns boolean
-       */
       function match(contact:Contact, query: string): boolean {
         return (contact.firstName && contact.firstName.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1) ||
           (contact.lastName && contact.lastName.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1);
       }
+    }
+
+    @computed
+    get selectedContact(): Contact {
+      if (this.filteredContacts.indexOf(this._selectedContact) > -1) {
+        return this._selectedContact;
+      }
+      return this.filteredContacts[0] || null;
+    }
+
+    setSelectedContact(contact: Contact) {
+      this._selectedContact = contact;
     }
 }
 

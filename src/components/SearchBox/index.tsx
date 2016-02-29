@@ -9,7 +9,7 @@ import {AppState} from '../..';
 export class SearchBox extends Component<{appState: AppState},{}> {
   searchChanged(event: React.SyntheticEvent) {
     const target = event.target as HTMLInputElement;
-    this.props.appState.performSearch(target.value);
+    this.props.appState.searchQuery = target.value;
   }
   render() {
     const appState = this.props.appState;
