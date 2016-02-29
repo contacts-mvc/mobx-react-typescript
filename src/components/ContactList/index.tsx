@@ -22,7 +22,7 @@ export class ContactList extends Component<{appState: AppState}, {}> {
 
   @computed
   get contactsAndDividers(): Array<any> {
-    const contacts = this.props.appState.contacts;
+    const contacts = this.props.appState.filteredContacts;
     const result: Array<any> = [];
 
     if (!contacts.length) return [];

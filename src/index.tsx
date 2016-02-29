@@ -7,6 +7,7 @@ import {observer} from 'mobx-react';
 import {ContactList} from './components/ContactList';
 import {ContactDetails} from './components/ContactDetails';
 import {SearchBox} from './components/SearchBox';
+import Contact from './interfaces/Contact';
 
 import CONTACTS from './contacts.data';
 
@@ -15,13 +16,38 @@ declare const require;
 const DevTools = require('mobx-react-devtools').default;
 
 export class AppState {
-    @observable contacts = [];
+    @observable private _selectedContact = null;
+    @observable contacts = CONTACTS;
     @observable searchQuery: string = '';
-    @observable selectedContact: any;
 
     constructor() {
       this.contacts = CONTACTS;
-      this.selectedContact = this.contacts[0];
+    }
+
+    @computed
+    get filteredContacts() {
+      if (!this.searchQuery) {
+        return this.contacts;
+      }
+
+      return this.contacts.filter(contact=> match(contact, this.searchQuery));
+
+      function match(contact:Contact, query: string): boolean {
+        return (contact.firstName && contact.firstName.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1) ||
+          (contact.lastName && contact.lastName.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1);
+      }
+    }
+
+    @computed
+    get selectedContact(): Contact {
+      if (this.filteredContacts.indexOf(this._selectedContact) > -1) {
+        return this._selectedContact;
+      }
+      return this.filteredContacts[0] || null;
+    }
+
+    setSelectedContact(contact: Contact) {
+      this._selectedContact = contact;
     }
 }
 

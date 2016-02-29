@@ -10,7 +10,7 @@ const classnames = require('classnames');
 @observer
 export class ContactListItem extends Component<{appState: AppState, contact: any; isSelected: boolean; key: string;}, {}> {
   selectContact() {
-    this.props.appState.selectedContact = this.props.contact;
+    this.props.appState.setSelectedContact(this.props.contact);
   }
   render() {
     const contact = this.props.contact;
