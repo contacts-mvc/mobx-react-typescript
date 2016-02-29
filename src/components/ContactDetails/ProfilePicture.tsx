@@ -8,7 +8,6 @@ import Contact from '../../interfaces/Contact';
 @observer
 export class ProfilePicture extends Component<{contact: Contact}, {}> {
 
-  @computed
   get initials(): string {
     const contact = this.props.contact;
     let initials = '';
@@ -26,7 +25,6 @@ export class ProfilePicture extends Component<{contact: Contact}, {}> {
     return initials;
   }
 
-  @computed
   get profilePictureUrl(): string {
     const contact = this.props.contact;
 
