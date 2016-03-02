@@ -3,6 +3,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {observable, computed} from 'mobx';
 import {observer} from 'mobx-react';
+import {Router, Route, browserHistory} from 'react-router';
 
 import {ContactList} from './components/ContactList';
 import {ContactDetails} from './components/ContactDetails';
@@ -50,11 +51,11 @@ export class AppState {
     }
 }
 
-@observer
-class App extends Component<{appState: AppState}, {}> {
-    render() {
-      const appState = this.props.appState;
+const appState =  new AppState();
 
+@observer
+class App extends Component<{}, {}> {
+    render() {
       return (
         <div className="container">
           <header className="main-header"></header>
@@ -72,5 +73,8 @@ class App extends Component<{appState: AppState}, {}> {
      }
 };
 
-const appState =  new AppState();
-ReactDOM.render(<App appState={appState} />, document.getElementById('root'));
+ReactDOM.render(
+  <Router history={browserHistory}>
+    <Route path='/' component={App} />
+  </Router>,
+  document.getElementById('root'));
