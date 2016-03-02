@@ -9,15 +9,14 @@ import {ContactDetails} from './components/ContactDetails';
 import {SearchBox} from './components/SearchBox';
 import Contact from './interfaces/Contact';
 
-import CONTACTS from './contacts.data';
-
-// TODO: Use import see #6, add typings
+// TODO: Use import see
 declare const require;
 const DevTools = require('mobx-react-devtools').default;
+const CONTACTS: Array<Contact> = require('../node_modules/contacts-mvc-data/index.json');
 
 export class AppState {
-    @observable private _selectedContact = null;
-    @observable contacts = CONTACTS;
+    @observable private _selectedContact: Contact = null;
+    @observable contacts: Array<Contact> = [];
     @observable searchQuery: string = '';
 
     constructor() {

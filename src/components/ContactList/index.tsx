@@ -20,10 +20,9 @@ class Divider {
 @observer
 export class ContactList extends Component<{appState: AppState}, {}> {
 
-  @computed
-  get contactsAndDividers(): Array<any> {
+  get contactsAndDividers(): Array<Contact | Divider> {
     const contacts = this.props.appState.filteredContacts;
-    const result: Array<any> = [];
+    const result: Array<Contact | Divider> = [];
 
     if (!contacts.length) return [];
 

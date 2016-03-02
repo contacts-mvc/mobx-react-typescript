@@ -18,13 +18,17 @@ module.exports = {
     new webpack.NoErrorsPlugin()
   ],
   resolve: {
-    extensions: ['', '.js', '.ts', '.tsx']
+    extensions: ['', '.js', '.ts', '.tsx', '.json']
   },
   module: {
     loaders: [
       {
         test: /\.css$/,
         loader: "style!css"
+      },
+      {
+        test: /\.json$/,
+        loaders: ['json-loader']
       },
       {
         test: /\.tsx?$/,
