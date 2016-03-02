@@ -15,7 +15,7 @@ export class ContactDetails extends Component<{params: {contactId: string}}, {}>
     super(props);
 
     if (this.props.params.contactId) {
-      appState.selectContact(this.props.params.contactId);
+      appState.selectContactById(this.props.params.contactId);
     }
 
     this.contact = appState.selectedContact;

@@ -43,16 +43,16 @@ export class AppState {
       if (this.filteredContacts.indexOf(this._selectedContact) > -1) {
         return this._selectedContact;
       }
-      return this.filteredContacts[0] || null;
+      return null;
     }
 
     setSelectedContact(contact: Contact) {
       this._selectedContact = contact;
     }
 
-    selectContact(id: string) {
-      // TODO
-      this.setSelectedContact(CONTACTS[1]);
+    selectContactById(id: string) {
+      const contact = CONTACTS.filter(contact=> contact.id === id)[0] || null;
+      this.setSelectedContact(contact);
     }
 }
 
