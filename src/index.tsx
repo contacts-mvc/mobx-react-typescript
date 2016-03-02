@@ -16,7 +16,7 @@ const DevTools = require('mobx-react-devtools').default;
 const CONTACTS: Array<Contact> = require('../node_modules/contacts-mvc-data/index.json');
 
 export class AppState {
-    @observable private _selectedContact: Contact = null;
+    @observable private _selectedContactId: string = null;
     @observable contacts: Array<Contact> = [];
     @observable searchQuery: string = '';
 
@@ -40,19 +40,17 @@ export class AppState {
 
     @computed
     get selectedContact(): Contact {
-      if (this.filteredContacts.indexOf(this._selectedContact) > -1) {
-        return this._selectedContact;
-      }
-      return null;
+      return this.filteredContacts.filter(contact=> contact.id === this._selectedContactId)[0] || null;
     }
 
-    setSelectedContact(contact: Contact) {
-      this._selectedContact = contact;
+    @computed
+    get selectedContactId(): string {
+     return this._selectedContactId;
     }
 
-    selectContactById(id: string) {
-      const contact = CONTACTS.filter(contact=> contact.id === id)[0] || null;
-      this.setSelectedContact(contact);
+    setSelectedContactId(id: string) {
+      browserHistory.push(id);
+      this._selectedContactId = id;
     }
 }
 
