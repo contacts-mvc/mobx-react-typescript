@@ -3,13 +3,18 @@ import {Component} from 'react';
 import {observer} from 'mobx-react';
 
 import Contact from '../../interfaces/Contact';
-
 import {ProfilePicture} from './ProfilePicture';
+import {appState} from '../..';
 
 @observer
-export class ContactDetails extends Component<{selectedContact: Contact}, {}> {
+export class ContactDetails extends Component<{params: {contactId: string}}, {}> {
   render() {
-    const contact = this.props.selectedContact;
+
+    if (this.props.params.contactId) {
+      appState.selectContact(this.props.params.contactId);
+    }
+
+    const contact = appState.selectedContact;
 
     if (!contact) {
       return <div className="details"></div>

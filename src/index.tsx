@@ -49,12 +49,17 @@ export class AppState {
     setSelectedContact(contact: Contact) {
       this._selectedContact = contact;
     }
+
+    selectContact(id: string) {
+      // TODO
+      this.setSelectedContact(CONTACTS[1]);
+    }
 }
 
-const appState =  new AppState();
+export const appState =  new AppState();
 
 @observer
-class App extends Component<{}, {}> {
+class App extends Component<{children}, {}> {
     render() {
       return (
         <div className="container">
@@ -64,7 +69,7 @@ class App extends Component<{}, {}> {
               <SearchBox appState={appState} />
               <ContactList appState={appState} />
             </aside>
-            <ContactDetails selectedContact={appState.selectedContact} />
+            {this.props.children}
           </main>
           <footer className="main-footer"></footer>
           <DevTools />
@@ -75,6 +80,8 @@ class App extends Component<{}, {}> {
 
 ReactDOM.render(
   <Router history={browserHistory}>
-    <Route path='/' component={App} />
+    <Route path='/' component={App}>
+      <Route path=':contactId' component={ContactDetails} />
+    </Route>
   </Router>,
   document.getElementById('root'));
