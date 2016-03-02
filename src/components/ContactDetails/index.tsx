@@ -8,13 +8,21 @@ import {appState} from '../..';
 
 @observer
 export class ContactDetails extends Component<{params: {contactId: string}}, {}> {
-  render() {
+
+  contact: Contact;
+
+  constructor(props){
+    super(props);
 
     if (this.props.params.contactId) {
       appState.selectContact(this.props.params.contactId);
     }
 
-    const contact = appState.selectedContact;
+    this.contact = appState.selectedContact;
+  }
+
+  render() {
+    const contact = this.contact;
 
     if (!contact) {
       return <div className="details"></div>
