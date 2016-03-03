@@ -76,10 +76,17 @@ class App extends Component<{children}, {}> {
      }
 };
 
+@observer
+class ContactDetailsWrapper extends Component<{params}, {}> {
+  render() {
+    return <ContactDetails appState={appState} params={this.props.params}/>
+  }
+}
+
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route path='/' component={App}>
-      <Route path=':contactId' component={ContactDetails} />
+      <Route path=':contactId' component={ContactDetailsWrapper} />
     </Route>
   </Router>,
   document.getElementById('root'));

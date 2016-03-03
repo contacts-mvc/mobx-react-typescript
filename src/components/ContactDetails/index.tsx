@@ -4,25 +4,22 @@ import {observer} from 'mobx-react';
 
 import Contact from '../../interfaces/Contact';
 import {ProfilePicture} from './ProfilePicture';
-import {appState} from '../..';
+import {AppState} from '../..';
 
 @observer
-export class ContactDetails extends Component<{params: {contactId: string}}, {}> {
+export class ContactDetails extends Component<{params: {contactId: string}, appState: AppState}, {}> {
 
-  contact: Contact;
 
-  constructor(props){
-    super(props);
 
+  componentWillMount() {
+    const appState = this.props.appState;
     if (this.props.params.contactId) {
       appState.setSelectedContactId(this.props.params.contactId);
     }
-
-    this.contact = appState.selectedContact;
   }
 
   render() {
-    const contact = this.contact;
+    const contact = this.props.appState.selectedContact;
 
     if (!contact) {
       return <div className="details"></div>
