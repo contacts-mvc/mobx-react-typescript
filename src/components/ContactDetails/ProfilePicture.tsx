@@ -28,8 +28,8 @@ export class ProfilePicture extends Component<{contact: Contact}, {}> {
   get profilePictureUrl(): string {
     const contact = this.props.contact;
 
-    if (contact.pictures && contact.pictures.length && contact.pictures[0].url) {
-      return contact.pictures[0].url;
+    if (contact.picture) {
+      return contact.picture.url;
     }
 
     return null;
