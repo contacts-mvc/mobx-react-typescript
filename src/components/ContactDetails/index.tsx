@@ -28,6 +28,10 @@ export class ContactDetails extends Component<{params: {contactId: string}, appS
     }
   }
 
+  formatPhoneNumber(raw: string): string {
+    return `(${raw.substr(0, 3)}) ${raw.substr(3,3)}-${raw.substr(6)}`;
+  }
+
   render() {
     const contact = this.props.appState.selectedContact;
 
@@ -45,10 +49,9 @@ export class ContactDetails extends Component<{params: {contactId: string}, appS
         </header>
         <table>
           <tbody>
-            <tr>
-              <td>{'email'}</td>
-              <td>{contact.email}</td>
-            </tr>
+            <TableRow label="email" value={contact.email} />
+            <TableRow label="phone" value={this.formatPhoneNumber(contact.phoneNumber)} />
+            <TableRow label="address" value={contact.address} />
           </tbody>
         </table>
         <footer>
