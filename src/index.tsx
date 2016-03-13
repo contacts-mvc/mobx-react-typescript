@@ -4,16 +4,13 @@ import * as ReactDOM from 'react-dom';
 import {observable, computed} from 'mobx';
 import {observer} from 'mobx-react';
 import {Router, Route, browserHistory} from 'react-router';
+import DevTools from 'mobx-react-devtools';
+import * as CONTACTS from 'contacts-mvc-data';
 
 import {ContactList} from './components/ContactList';
 import {ContactDetails} from './components/ContactDetails';
 import {SearchBox} from './components/SearchBox';
 import Contact from './interfaces/Contact';
-
-// TODO: Use import see
-declare const require;
-const DevTools = require('mobx-react-devtools').default;
-const CONTACTS: Array<Contact> = require('../node_modules/contacts-mvc-data/index.json');
 
 export class AppState {
     @observable private _selectedContactId: string = null;
@@ -21,7 +18,12 @@ export class AppState {
     @observable searchQuery: string = '';
 
     constructor() {
-      this.contacts = CONTACTS;
+
+      // hacking around TypeScript `export default` behavior
+      const _contacts = CONTACTS as any;
+      const contacts = _contacts as Contact[];
+
+      this.contacts = contacts;
     }
 
     @computed
