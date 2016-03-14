@@ -12,6 +12,7 @@ const classnames = require('classnames');
 export class ContactListItem extends Component<{appState: AppState, contact: any; isSelected: boolean; key: string;}, {}> {
   selectContact() {
     browserHistory.push('/' + this.props.contact.id);
+    this.props.appState.setSelectedContactId(this.props.contact.id);
   }
   render() {
     const contact = this.props.contact;

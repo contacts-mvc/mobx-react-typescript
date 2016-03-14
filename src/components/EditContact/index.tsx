@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Component} from 'react';
 import {observer} from 'mobx-react';
+import {browserHistory} from 'react-router';
 
 import Contact from '../../interfaces/Contact';
 
@@ -20,6 +21,15 @@ export class EditContact extends Component<{params: {contactId: string}, appStat
     return `(${raw.substr(0, 3)}) ${raw.substr(3,3)}-${raw.substr(6)}`;
   }
 
+  quit() {
+    browserHistory.push('/' + this.props.params.contactId);
+  }
+
+  save() {
+    console.log(this);
+    this.quit();
+  }
+
   render() {
     const contact = this.props.appState.selectedContact;
 
@@ -36,7 +46,7 @@ export class EditContact extends Component<{params: {contactId: string}, appStat
           }</div>
           <div className="title">
             <h1 className="name">
-              <input type="text" placeholder="First Name" value={contact.firstName}/>
+              <input type="text" placeholder="First Name" value={contact.firstName}/ >
               &nbsp;
               <input type="text" placeholder="Last Name" />
             </h1>
@@ -48,11 +58,10 @@ export class EditContact extends Component<{params: {contactId: string}, appStat
         </table>
         <footer>
           <div className="left">
-            <button>+</button>
           </div>
           <div className="right">
-            <button>Delete</button>
-            <button>Edit</button>
+            <button onClick={this.quit.bind(this)}>Cancel</button>
+            <button type="submit" onClick={this.save.bind(this)}>Save</button>
           </div>
         </footer>
       </div>

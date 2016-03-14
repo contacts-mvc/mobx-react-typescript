@@ -15,7 +15,6 @@ import Contact from './interfaces/Contact';
 
 
 export class AppState {
-    @observable location: any = 1234;
     @observable private _selectedContactId: string = null;
     @observable contacts: Array<Contact> = [];
     @observable searchQuery: string = '';
@@ -60,7 +59,6 @@ export class AppState {
 
 export const appState =  new AppState();
 
-browserHistory.listen(location=> appState.location = location);
 
 @observer
 class App extends Component<{children}, {}> {
