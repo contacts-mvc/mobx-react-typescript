@@ -9,10 +9,13 @@ import * as CONTACTS from 'contacts-mvc-data';
 
 import {ContactList} from './components/ContactList';
 import {ContactDetails} from './components/ContactDetails';
+import {EditContact} from './components/EditContact';
 import {SearchBox} from './components/SearchBox';
 import Contact from './interfaces/Contact';
 
+
 export class AppState {
+    @observable location: any = 1234;
     @observable private _selectedContactId: string = null;
     @observable contacts: Array<Contact> = [];
     @observable searchQuery: string = '';
@@ -51,12 +54,13 @@ export class AppState {
     }
 
     setSelectedContactId(id: string) {
-      browserHistory.push(id);
       this._selectedContactId = id;
     }
 }
 
 export const appState =  new AppState();
+
+browserHistory.listen(location=> appState.location = location);
 
 @observer
 class App extends Component<{children}, {}> {
@@ -85,10 +89,18 @@ class ContactDetailsWrapper extends Component<{params}, {}> {
   }
 }
 
+@observer
+class EditContactWrapper extends Component<{params}, {}> {
+  render() {
+    return <EditContact appState={appState} params={this.props.params}/>
+  }
+}
+
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route path='/' component={App}>
       <Route path=':contactId' component={ContactDetailsWrapper} />
+      <Route path=':contactId/edit' component={EditContactWrapper} />
     </Route>
   </Router>,
   document.getElementById('root'));
