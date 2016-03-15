@@ -63,14 +63,14 @@ export const appState =  new AppState();
 
 
 @observer
-class App extends Component<{children}, {}> {
+class App extends Component<{children: any, params: any}, {}> {
     render() {
       return (
         <div className="container">
           <header className="main-header"></header>
           <main>
             <aside>
-              <SearchBox appState={appState} />
+              <SearchBox appState={appState} params={this.props.params} />
               <ContactList appState={appState} />
             </aside>
             {this.props.children}
@@ -81,6 +81,13 @@ class App extends Component<{children}, {}> {
        );
      }
 };
+
+@observer
+class AppWrapper extends Component<{params: any, children: any}, {}> {
+  render() {
+    return <App params={this.props.params} children={this.props.children}/>
+  }
+}
 
 @observer
 class ContactDetailsWrapper extends Component<{params}, {}> {
@@ -106,8 +113,9 @@ class NewContactWrapper extends Component<{params}, {}> {
 
 ReactDOM.render(
   <Router history={browserHistory}>
-    <Route path='/' component={App}>
+    <Route path='/' component={AppWrapper}>
       <IndexRoute component={Empty} />
+      <Route path='search/:query' component={ContactDetailsWrapper} />
       <Route path='new' component={NewContactWrapper} />
       <Route path=':contactId' component={ContactDetailsWrapper} />
       <Route path=':contactId/edit' component={EditContactWrapper} />

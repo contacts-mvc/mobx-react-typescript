@@ -3,6 +3,7 @@ import {Component} from 'react';
 import {observer} from 'mobx-react';
 import {browserHistory} from 'react-router';
 
+import {Empty} from '../Empty';
 import Contact from '../../interfaces/Contact';
 import {ProfilePicture} from './ProfilePicture';
 import {AppState} from '../..';
@@ -45,6 +46,10 @@ export class ContactDetails extends Component<{params: {contactId: string}, appS
 
   render() {
     const contact = this.props.appState.selectedContact;
+
+    if (!contact) {
+      return <Empty params={null} />
+    }
 
     return (
       <div className="details">
