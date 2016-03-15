@@ -46,6 +46,9 @@ export class AppState {
 
     @computed
     get selectedContact(): Contact {
+      if (this.searchQuery) {
+        return this.filteredContacts[0];
+      }
       return this.filteredContacts.filter(contact=> contact.id === this._selectedContactId)[0] || null;
     }
 

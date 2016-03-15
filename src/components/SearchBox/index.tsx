@@ -34,6 +34,12 @@ export class SearchBox extends Component<{params: {query: string}, appState: App
     browserHistory.replace(`/search/${query}`);
   }
 
+  endSeach() {
+    if (!this.props.appState.searchQuery) {
+      browserHistory.replace('/');
+    }
+  }
+
   render() {
     const appState = this.props.appState;
     return (
@@ -43,7 +49,8 @@ export class SearchBox extends Component<{params: {query: string}, appState: App
           type="search"
           placeholder="Search..."
           value={appState.searchQuery}
-          onChange={this.searchChanged.bind(this)}/>
+          onChange={this.searchChanged.bind(this)}
+          onBlur={this.endSeach.bind(this)} />
       </div>
     );
   }
