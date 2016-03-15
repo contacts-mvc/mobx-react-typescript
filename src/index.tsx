@@ -3,7 +3,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {observable, computed} from 'mobx';
 import {observer} from 'mobx-react';
-import {Router, Route, browserHistory} from 'react-router';
+import {Router, Route, IndexRoute, browserHistory} from 'react-router';
 import DevTools from 'mobx-react-devtools';
 import * as CONTACTS from 'contacts-mvc-data';
 
@@ -11,6 +11,7 @@ import {ContactList} from './components/ContactList';
 import {ContactDetails} from './components/ContactDetails';
 import {EditContact} from './components/EditContact';
 import {SearchBox} from './components/SearchBox';
+import {Empty} from './components/Empty';
 import Contact from './interfaces/Contact';
 import {ContactClass} from './interfaces/Contact';
 
@@ -106,6 +107,7 @@ class NewContactWrapper extends Component<{params}, {}> {
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route path='/' component={App}>
+      <IndexRoute component={Empty} />
       <Route path='new' component={NewContactWrapper} />
       <Route path=':contactId' component={ContactDetailsWrapper} />
       <Route path=':contactId/edit' component={EditContactWrapper} />

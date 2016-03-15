@@ -37,6 +37,12 @@ export class ContactDetails extends Component<{params: {contactId: string}, appS
     browserHistory.push(this.props.params.contactId + '/edit');
   }
 
+  navigateToNew() {
+    this.props.appState.setSelectedContactId(null);
+
+    browserHistory.push('/new');
+  }
+
   render() {
     const contact = this.props.appState.selectedContact;
 
@@ -57,7 +63,7 @@ export class ContactDetails extends Component<{params: {contactId: string}, appS
         </table>
         <footer>
           <div className="left">
-            <button>+</button>
+            <button onClick={this.navigateToNew.bind(this)}>+</button>
           </div>
           <div className="right">
             <button>Delete</button>
