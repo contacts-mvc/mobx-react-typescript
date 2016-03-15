@@ -25,7 +25,7 @@ export class ContactDetails extends Component<{params: {contactId: string}, appS
 
   componentWillMount() {
     const appState = this.props.appState;
-    if (this.props.params.contactId && ['new', 'search'].indexOf(this.props.params.contactId) > -1) {
+    if (this.props.params.contactId && ['new', 'search'].indexOf(this.props.params.contactId) === -1) {
       appState.setSelectedContactId(this.props.params.contactId);
     }
   }
