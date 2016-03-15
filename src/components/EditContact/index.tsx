@@ -5,13 +5,12 @@ import {browserHistory} from 'react-router';
 
 import Contact from '../../interfaces/Contact';
 
-import {AppState} from '../..';
+import {AppState, appState} from '../..';
 
 @observer
-export class EditContact extends Component<{params: {contactId: string}, appState: AppState}, {}> {
+export class EditContact extends Component<{params: {contactId: string}, contact: Contact, isNew?: boolean}, {}> {
 
   componentWillMount() {
-    const appState = this.props.appState;
     if (this.props.params.contactId) {
       appState.setSelectedContactId(this.props.params.contactId);
     }
@@ -22,6 +21,9 @@ export class EditContact extends Component<{params: {contactId: string}, appStat
   }
 
   quit() {
+    if (this.props.isNew) {
+      return browserHistory.push('/');
+    }
     browserHistory.push('/' + this.props.params.contactId);
   }
 
@@ -31,7 +33,7 @@ export class EditContact extends Component<{params: {contactId: string}, appStat
   }
 
   render() {
-    const contact = this.props.appState.selectedContact;
+    const contact = this.props.contact;
 
     if (!contact) {
       return <div className="details"></div>

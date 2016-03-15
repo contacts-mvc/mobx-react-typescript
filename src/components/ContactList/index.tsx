@@ -55,7 +55,7 @@ export class ContactList extends Component<{appState: AppState}, {}> {
                       key={contact.id.toString()}
                       contact={contact}
                       appState={this.props.appState}
-                      isSelected={this.props.appState.selectedContact === contact}/>
+                      isSelected={this.props.appState.selectedContact === contact} />
           })}
         </ul>
       </div>

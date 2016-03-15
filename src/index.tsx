@@ -12,6 +12,7 @@ import {ContactDetails} from './components/ContactDetails';
 import {EditContact} from './components/EditContact';
 import {SearchBox} from './components/SearchBox';
 import Contact from './interfaces/Contact';
+import {ContactClass} from './interfaces/Contact';
 
 
 export class AppState {
@@ -90,13 +91,22 @@ class ContactDetailsWrapper extends Component<{params}, {}> {
 @observer
 class EditContactWrapper extends Component<{params}, {}> {
   render() {
-    return <EditContact appState={appState} params={this.props.params}/>
+    return <EditContact contact={appState.selectedContact} params={this.props.params}/>
+  }
+}
+
+@observer
+class NewContactWrapper extends Component<{params}, {}> {
+  render() {
+    const contact = new ContactClass();
+    return <EditContact contact={contact} isNew={true} params={this.props.params}/>
   }
 }
 
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route path='/' component={App}>
+      <Route path='new' component={NewContactWrapper} />
       <Route path=':contactId' component={ContactDetailsWrapper} />
       <Route path=':contactId/edit' component={EditContactWrapper} />
     </Route>

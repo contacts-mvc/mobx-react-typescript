@@ -40,10 +40,6 @@ export class ContactDetails extends Component<{params: {contactId: string}, appS
   render() {
     const contact = this.props.appState.selectedContact;
 
-    if (!contact) {
-      return <div className="details"></div>
-    }
-
     return (
       <div className="details">
         <header>
