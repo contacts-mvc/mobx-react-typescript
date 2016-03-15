@@ -1,6 +1,7 @@
 import {Component} from 'react';
 import * as React from 'react';
 import {observer} from 'mobx-react';
+import {browserHistory} from 'react-router';
 
 import {AppState} from '../..';
 
@@ -10,6 +11,7 @@ const classnames = require('classnames');
 @observer
 export class ContactListItem extends Component<{appState: AppState, contact: any; isSelected: boolean; key: string;}, {}> {
   selectContact() {
+    browserHistory.push('/' + this.props.contact.id);
     this.props.appState.setSelectedContactId(this.props.contact.id);
   }
   render() {

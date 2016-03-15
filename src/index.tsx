@@ -9,8 +9,10 @@ import * as CONTACTS from 'contacts-mvc-data';
 
 import {ContactList} from './components/ContactList';
 import {ContactDetails} from './components/ContactDetails';
+import {EditContact} from './components/EditContact';
 import {SearchBox} from './components/SearchBox';
 import Contact from './interfaces/Contact';
+
 
 export class AppState {
     @observable private _selectedContactId: string = null;
@@ -51,12 +53,12 @@ export class AppState {
     }
 
     setSelectedContactId(id: string) {
-      browserHistory.push(id);
       this._selectedContactId = id;
     }
 }
 
 export const appState =  new AppState();
+
 
 @observer
 class App extends Component<{children}, {}> {
@@ -85,10 +87,18 @@ class ContactDetailsWrapper extends Component<{params}, {}> {
   }
 }
 
+@observer
+class EditContactWrapper extends Component<{params}, {}> {
+  render() {
+    return <EditContact appState={appState} params={this.props.params}/>
+  }
+}
+
 ReactDOM.render(
   <Router history={browserHistory}>
     <Route path='/' component={App}>
       <Route path=':contactId' component={ContactDetailsWrapper} />
+      <Route path=':contactId/edit' component={EditContactWrapper} />
     </Route>
   </Router>,
   document.getElementById('root'));

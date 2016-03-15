@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {Component} from 'react';
 import {observer} from 'mobx-react';
+import {browserHistory} from 'react-router';
 
 import Contact from '../../interfaces/Contact';
 import {ProfilePicture} from './ProfilePicture';
@@ -32,6 +33,10 @@ export class ContactDetails extends Component<{params: {contactId: string}, appS
     return `(${raw.substr(0, 3)}) ${raw.substr(3,3)}-${raw.substr(6)}`;
   }
 
+  edit() {
+    browserHistory.push(this.props.params.contactId + '/edit');
+  }
+
   render() {
     const contact = this.props.appState.selectedContact;
 
@@ -60,7 +65,7 @@ export class ContactDetails extends Component<{params: {contactId: string}, appS
           </div>
           <div className="right">
             <button>Delete</button>
-            <button>Edit</button>
+            <button onClick={this.edit.bind(this)}>Edit</button>
           </div>
         </footer>
       </div>
