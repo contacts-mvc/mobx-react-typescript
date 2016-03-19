@@ -93,16 +93,28 @@ class AppWrapper extends Component<{params: any, children: any}, {}> {
 }
 
 @observer
-class ContactDetailsWrapper extends Component<{params}, {}> {
+class ContactDetailsWrapper extends Component<{params: {contactId: string}}, {}> {
+
+  componentWillMount() {
+    if (this.props.params.contactId && ['new', 'search'].indexOf(this.props.params.contactId) === -1) {
+      appState.setSelectedContactId(this.props.params.contactId);
+    }
+  }
+
   render() {
-    return <ContactDetails appState={appState} params={this.props.params}/>
+    return <ContactDetails contact={appState.selectedContact}/>
   }
 }
 
 @observer
-class EditContactWrapper extends Component<{params}, {}> {
+class EditContactWrapper extends Component<{params: {contactId: string}}, {}> {
+  componentWillMount() {
+    if (this.props.params.contactId) {
+      appState.setSelectedContactId(this.props.params.contactId);
+    }
+  }
   render() {
-    return <EditContact contact={appState.selectedContact} params={this.props.params}/>
+    return <EditContact contact={appState.selectedContact} />
   }
 }
 
@@ -110,7 +122,7 @@ class EditContactWrapper extends Component<{params}, {}> {
 class NewContactWrapper extends Component<{params}, {}> {
   render() {
     const contact = new ContactClass();
-    return <EditContact contact={contact} isNew={true} params={this.props.params}/>
+    return <EditContact contact={contact} isNew={true} />
   }
 }
 

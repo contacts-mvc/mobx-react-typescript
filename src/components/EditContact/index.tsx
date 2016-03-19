@@ -8,13 +8,7 @@ import Contact from '../../interfaces/Contact';
 import {AppState, appState} from '../..';
 
 @observer
-export class EditContact extends Component<{params: {contactId: string}, contact: Contact, isNew?: boolean}, {}> {
-
-  componentWillMount() {
-    if (this.props.params.contactId) {
-      appState.setSelectedContactId(this.props.params.contactId);
-    }
-  }
+export class EditContact extends Component<{contact: Contact, isNew?: boolean}, {}> {
 
   formatPhoneNumber(raw: string): string {
     return `(${raw.substr(0, 3)}) ${raw.substr(3,3)}-${raw.substr(6)}`;
@@ -24,7 +18,7 @@ export class EditContact extends Component<{params: {contactId: string}, contact
     if (this.props.isNew) {
       return browserHistory.push('/');
     }
-    browserHistory.push('/' + this.props.params.contactId);
+    browserHistory.push('/' + this.props.contact.id);
   }
 
   save() {

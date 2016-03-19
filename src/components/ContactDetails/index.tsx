@@ -6,7 +6,7 @@ import {browserHistory} from 'react-router';
 import {Empty} from '../Empty';
 import Contact from '../../interfaces/Contact';
 import {ProfilePicture} from './ProfilePicture';
-import {AppState} from '../..';
+import {AppState, appState} from '../..';
 
 class TableRow extends Component<{label: string; value: string}, {}> {
   render() {
@@ -21,31 +21,24 @@ class TableRow extends Component<{label: string; value: string}, {}> {
 }
 
 @observer
-export class ContactDetails extends Component<{params: {contactId: string}, appState: AppState}, {}> {
-
-  componentWillMount() {
-    const appState = this.props.appState;
-    if (this.props.params.contactId && ['new', 'search'].indexOf(this.props.params.contactId) === -1) {
-      appState.setSelectedContactId(this.props.params.contactId);
-    }
-  }
+export class ContactDetails extends Component<{contact: Contact}, {}> {
 
   formatPhoneNumber(raw: string): string {
     return `(${raw.substr(0, 3)}) ${raw.substr(3,3)}-${raw.substr(6)}`;
   }
 
   edit() {
-    browserHistory.push(this.props.params.contactId + '/edit');
+    browserHistory.push(this.props.contact.id + '/edit');
   }
 
   navigateToNew() {
-    this.props.appState.setSelectedContactId(null);
+    appState.setSelectedContactId(null);
 
     browserHistory.push('/new');
   }
 
   render() {
-    const contact = this.props.appState.selectedContact;
+    const contact = this.props.contact;
 
     if (!contact) {
       return <Empty params={null} />
