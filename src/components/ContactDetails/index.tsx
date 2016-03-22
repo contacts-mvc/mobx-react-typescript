@@ -5,7 +5,7 @@ import {browserHistory} from 'react-router';
 
 import {Empty} from '../Empty';
 import Contact from '../../interfaces/Contact';
-import {ProfilePicture} from './ProfilePicture';
+import {ProfilePicture} from '../ProfilePicture';
 import {AppState, appState} from '../..';
 
 class TableRow extends Component<{label: string; value: string}, {}> {

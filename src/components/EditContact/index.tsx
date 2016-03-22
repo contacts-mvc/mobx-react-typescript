@@ -4,6 +4,7 @@ import {observer} from 'mobx-react';
 import {browserHistory} from 'react-router';
 
 import Contact from '../../interfaces/Contact';
+import {ProfilePicture} from '../ProfilePicture';
 
 import {AppState, appState} from '../..';
 
@@ -36,20 +37,38 @@ export class EditContact extends Component<{contact: Contact, isNew?: boolean}, 
     return (
       <div className="editing details">
         <header>
-          <h1>{'EDITING'}</h1>
-          <div>{
-            //'Profile picture'
-          }</div>
+          <div>
+            <ProfilePicture contact={contact} />
+            <input type="file" className="upload-picture" />
+          </div>
           <div className="title">
             <h1 className="name">
-              <input type="text" placeholder="First Name" value={contact.firstName}/ >
-              &nbsp;
-              <input type="text" placeholder="Last Name" />
+              <input type="text" value={contact.firstName} />
+              <span>&nbsp;</span>
+              <input type="text" value={contact.lastName} />
             </h1>
           </div>
         </header>
         <table>
           <tbody>
+            <tr>
+              <td>email</td>
+              <td>
+                <input value={contact.email} onChange={null}/>
+              </td>
+            </tr>
+            <tr>
+              <td>phone</td>
+              <td>
+                <input value={contact.phoneNumber} onChange={null}/>
+              </td>
+            </tr>
+            <tr>
+              <td>address</td>
+              <td>
+                <input value={contact.address} onChange={null}/>
+              </td>
+            </tr>
           </tbody>
         </table>
         <footer>
