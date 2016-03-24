@@ -43,9 +43,9 @@ export class EditContact extends Component<{contact: Contact, isNew?: boolean}, 
           </div>
           <div className="title">
             <h1 className="name">
-              <input type="text" value={contact.firstName} />
+              <input placeholder="First Name" type="text" value={contact.firstName} />
               <span>&nbsp;</span>
-              <input type="text" value={contact.lastName} />
+              <input placeholder="Last Name" type="text" value={contact.lastName} />
             </h1>
           </div>
         </header>
@@ -54,19 +54,19 @@ export class EditContact extends Component<{contact: Contact, isNew?: boolean}, 
             <tr>
               <td>email</td>
               <td>
-                <input value={contact.email} onChange={null}/>
+                <input placeholder="Email" value={contact.email} onChange={null}/>
               </td>
             </tr>
             <tr>
               <td>phone</td>
               <td>
-                <input value={contact.phoneNumber} onChange={null}/>
+                <input placeholder="Phone Number" value={contact.phoneNumber} onChange={null}/>
               </td>
             </tr>
             <tr>
               <td>address</td>
               <td>
-                <input value={contact.address} onChange={null}/>
+                <input placeholder="Address" value={contact.address} onChange={null}/>
               </td>
             </tr>
           </tbody>
