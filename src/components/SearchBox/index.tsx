@@ -37,7 +37,7 @@ export class SearchBox extends Component<{params: {query: string}, appState?: Ap
 
   endSeach() {
     if (!this.props.appState.searchQuery) {
-      this.props.appState.setSelectedContactId(null);
+      this.props.appState.selectedContact = null;
       browserHistory.replace('/');
     }
   }

@@ -5,9 +5,8 @@ import {observer, inject} from 'mobx-react';
 
 import Contact from '../../interfaces/Contact';
 
-@inject('contact')
 @observer
-export class ProfilePicture extends Component<{contact?: Contact}, {}> {
+export class ProfilePicture extends Component<{contact: Contact}, {}> {
 
   get initials(): string {
     const contact = this.props.contact;

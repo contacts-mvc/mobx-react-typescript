@@ -4,7 +4,6 @@ import DevTools from 'mobx-react-devtools';
 
 import {SearchBox, ContactList} from '../';
 
-
 @observer
 export class App extends React.Component<{children: any, params: any}, {}> {
   render() {

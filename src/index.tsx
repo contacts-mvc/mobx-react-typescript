@@ -12,7 +12,7 @@ const appState =  new AppState();
 
 
 ReactDOM.render(
-  <Provider appState={appState} contact={appState.selectedContact}>
+  <Provider appState={appState}>
     <Router history={browserHistory}>
       <Route path='/' component={App}>
         <IndexRoute component={Empty} />
