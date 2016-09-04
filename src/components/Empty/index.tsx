@@ -5,8 +5,6 @@ import {Link, browserHistory} from 'react-router';
 
 import Contact from '../../interfaces/Contact';
 
-import {AppState, appState} from '../..';
-
 export class Empty extends Component<{params}, {}> {
   render() {
     return <div className='empty'>

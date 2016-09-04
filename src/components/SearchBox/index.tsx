@@ -1,13 +1,14 @@
 import * as React from 'react';
 import {Component} from 'react';
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 import {browserHistory} from 'react-router';
 
-import Contact from '../../interfaces/Contact';
+import {Contact} from '../../interfaces';
 import {AppState} from '../..';
 
+@inject('appState')
 @observer
-export class SearchBox extends Component<{params: {query: string}, appState: AppState},{}> {
+export class SearchBox extends Component<{params: {query: string}, appState?: AppState},{}> {
   shouldAutoFocus: boolean = false;
 
   componentWillMount() {

@@ -1,6 +1,6 @@
 import {Component} from 'react';
 import * as React from 'react';
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 import {computed} from 'mobx';
 
 import Contact from '../../interfaces/Contact';
@@ -17,8 +17,9 @@ class Divider {
   }
 }
 
+@inject('appState')
 @observer
-export class ContactList extends Component<{appState: AppState}, {}> {
+export class ContactList extends Component<{appState?: AppState}, {}> {
 
   get contactsAndDividers(): Array<Contact | Divider> {
     const contacts = this.props.appState.filteredContacts;

@@ -1,139 +1,26 @@
 import {Component} from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {observable, computed} from 'mobx';
-import {observer} from 'mobx-react';
+import {Provider} from 'mobx-react';
 import {Router, Route, IndexRoute, browserHistory} from 'react-router';
-import DevTools from 'mobx-react-devtools';
-import * as CONTACTS from 'contacts-mvc-data';
 
-import {ContactList} from './components/ContactList';
-import {ContactDetails} from './components/ContactDetails';
-import {EditContact} from './components/EditContact';
-import {SearchBox} from './components/SearchBox';
-import {Empty} from './components/Empty';
-import Contact from './interfaces/Contact';
-import {ContactClass} from './interfaces/Contact';
+import {App, ContactDetails, ContactList, EditContact, Empty, SearchBox} from './components';
+import {AppState} from './AppState';
+export {AppState} from './AppState'; // lazy
 
+const appState =  new AppState();
 
-export class AppState {
-    @observable private _selectedContactId: string = null;
-    @observable contacts: Array<Contact> = [];
-    @observable searchQuery: string = '';
-
-    constructor() {
-
-      // hacking around TypeScript `export default` behavior
-      const _contacts = CONTACTS as any;
-      const contacts = _contacts as Contact[];
-
-      this.contacts = contacts;
-    }
-
-    @computed
-    get filteredContacts() {
-      if (!this.searchQuery) {
-        return this.contacts;
-      }
-
-      return this.contacts.filter(contact=> match(contact, this.searchQuery));
-
-      function match(contact:Contact, query: string): boolean {
-        return (contact.firstName && contact.firstName.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1) ||
-          (contact.lastName && contact.lastName.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1);
-      }
-    }
-
-    @computed
-    get selectedContact(): Contact {
-      if (this.searchQuery) {
-        return this.filteredContacts[0];
-      }
-      return this.filteredContacts.filter(contact=> contact.id === this._selectedContactId)[0] || null;
-    }
-
-    @computed
-    get selectedContactId(): string {
-     return this._selectedContactId;
-    }
-
-    setSelectedContactId(id: string) {
-      this._selectedContactId = id;
-    }
-}
-
-export const appState =  new AppState();
-
-
-@observer
-class App extends Component<{children: any, params: any}, {}> {
-    render() {
-      return (
-        <div className="container">
-          <header className="main-header"></header>
-          <main>
-            <aside>
-              <SearchBox appState={appState} params={this.props.params} />
-              <ContactList appState={appState} />
-            </aside>
-            {this.props.children}
-          </main>
-          <footer className="main-footer"></footer>
-          <DevTools />
-        </div>
-       );
-     }
-};
-
-@observer
-class AppWrapper extends Component<{params: any, children: any}, {}> {
-  render() {
-    return <App params={this.props.params} children={this.props.children}/>
-  }
-}
-
-@observer
-class ContactDetailsWrapper extends Component<{params: {contactId: string}}, {}> {
-
-  componentWillMount() {
-    if (this.props.params.contactId && ['new', 'search'].indexOf(this.props.params.contactId) === -1) {
-      appState.setSelectedContactId(this.props.params.contactId);
-    }
-  }
-
-  render() {
-    return <ContactDetails contact={appState.selectedContact}/>
-  }
-}
-
-@observer
-class EditContactWrapper extends Component<{params: {contactId: string}}, {}> {
-  componentWillMount() {
-    if (this.props.params.contactId) {
-      appState.setSelectedContactId(this.props.params.contactId);
-    }
-  }
-  render() {
-    return <EditContact contact={appState.selectedContact} />
-  }
-}
-
-@observer
-class NewContactWrapper extends Component<{params}, {}> {
-  render() {
-    const contact = new ContactClass();
-    return <EditContact contact={contact} isNew={true} />
-  }
-}
 
 ReactDOM.render(
-  <Router history={browserHistory}>
-    <Route path='/' component={AppWrapper}>
-      <IndexRoute component={Empty} />
-      <Route path='search/:query' component={ContactDetailsWrapper} />
-      <Route path='new' component={NewContactWrapper} />
-      <Route path=':contactId' component={ContactDetailsWrapper} />
-      <Route path=':contactId/edit' component={EditContactWrapper} />
-    </Route>
-  </Router>,
+  <Provider appState={appState} contact={appState.selectedContact}>
+    <Router history={browserHistory}>
+      <Route path='/' component={App}>
+        <IndexRoute component={Empty} />
+        <Route path='search/:query' component={ContactDetails} />
+        <Route path='new' component={EditContact} />
+        <Route path=':contactId' component={ContactDetails} />
+        <Route path=':contactId/edit' component={EditContact} />
+      </Route>
+    </Router>
+  </Provider>,
   document.getElementById('root'));

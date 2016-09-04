@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {Component} from 'react';
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 import {browserHistory} from 'react-router';
 
 import {Empty} from '../Empty';
-import Contact from '../../interfaces/Contact';
+import {Contact} from '../../interfaces';
 import {ProfilePicture} from '../ProfilePicture';
-import {AppState, appState} from '../..';
+import {AppState} from '../..';
 
 class TableRow extends Component<{label: string; value: string}, {}> {
   render() {
@@ -20,8 +20,9 @@ class TableRow extends Component<{label: string; value: string}, {}> {
   }
 }
 
+@inject('contact')
 @observer
-export class ContactDetails extends Component<{contact: Contact}, {}> {
+export class ContactDetails extends Component<{contact?: Contact, appState?: AppState}, {}> {
 
   formatPhoneNumber(raw: string): string {
     return `(${raw.substr(0, 3)}) ${raw.substr(3,3)}-${raw.substr(6)}`;
@@ -32,7 +33,7 @@ export class ContactDetails extends Component<{contact: Contact}, {}> {
   }
 
   navigateToNew() {
-    appState.setSelectedContactId(null);
+    this.props.appState.setSelectedContactId(null);
 
     browserHistory.push('/new');
   }

@@ -1,15 +1,14 @@
 import * as React from 'react';
 import {Component} from 'react';
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 import {browserHistory} from 'react-router';
 
 import Contact from '../../interfaces/Contact';
 import {ProfilePicture} from '../ProfilePicture';
 
-import {AppState, appState} from '../..';
-
+@inject('contact')
 @observer
-export class EditContact extends Component<{contact: Contact, isNew?: boolean}, {}> {
+export class EditContact extends Component<{contact?: Contact, isNew?: boolean}, {}> {
 
   formatPhoneNumber(raw: string): string {
     return `(${raw.substr(0, 3)}) ${raw.substr(3,3)}-${raw.substr(6)}`;
