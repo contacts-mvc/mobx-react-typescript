@@ -29,18 +29,18 @@
     "contacts-mvc-css": "^1.4.0",
     "contacts-mvc-data": "^2.3.0",
     "json-loader": "^0.5.4",
-    "mobx": "^2.2.2",
-    "mobx-react": "^3.3.1",
-    "mobx-react-devtools": "^4.2.0",
-    "react": "^15.1.0",
-    "react-dom": "^15.1.0",
-    "react-hot-loader": "^2.0.0-alpha-4",
-    "react-router": "^2.4.1",
+    "mobx": "^2.5.1",
+    "mobx-react": "^3.5.5",
+    "mobx-react-devtools": "^4.2.5",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "react-hot-loader": "^3.0.0-beta.3",
+    "react-router": "^2.7.0",
     "reset-css": "^2.0.2011012603",
     "style-loader": "^0.13.1",
     "ts-loader": "^0.8.2",
     "typescript": "^1.8.10",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.15.1"
   }
 }
