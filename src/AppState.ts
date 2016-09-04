@@ -16,8 +16,13 @@ export class AppState {
       return this.contacts.filter(contact=> match(contact, this.searchQuery));
 
       function match(contact: Contact, query: string): boolean {
-        return (contact.firstName && contact.firstName.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1) ||
-          (contact.lastName && contact.lastName.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1);
+        return (
+          contact.firstName && contains(contact.firstName, query) ||
+          (contact.lastName && contains(contact.lastName, query))
+        );
+      }
+      function contains(str: string, query: string): boolean {
+        return str.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1;
       }
     }
 
