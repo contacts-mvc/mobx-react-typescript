@@ -1,6 +1,8 @@
-import {observable, computed, action} from 'mobx';
+import {observable, computed, action, useStrict} from 'mobx';
 import * as CONTACTS from 'contacts-mvc-data';
 import {Contact} from './interfaces';
+
+useStrict(true);
 
 export class AppState {
     @observable public selectedContact: Contact = null
@@ -16,12 +18,9 @@ export class AppState {
       return this.contacts.filter(contact=> match(contact, this.searchQuery));
 
       function match(contact: Contact, query: string): boolean {
-        return (
-          contact.firstName && contains(contact.firstName, query) ||
-          (contact.lastName && contains(contact.lastName, query))
-        );
+        return contains(contact.firstName, query) || contains(contact.lastName, query);
       }
-      function contains(str: string, query: string): boolean {
+      function contains(str: string = '', query: string = ''): boolean {
         return str.toLocaleLowerCase().indexOf(query.toLocaleLowerCase()) > -1;
       }
     }
@@ -29,5 +28,10 @@ export class AppState {
     @action
     selectContact(contact: Contact): void {
       this.selectedContact = contact;
+    }
+
+    @action
+    search(query: string): void {
+      this.searchQuery = query;
     }
 }

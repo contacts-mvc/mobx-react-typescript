@@ -13,7 +13,7 @@ export class SearchBox extends Component<{params: {query: string}, appState?: Ap
 
   componentWillMount() {
     if (this.props.params.query) {
-      this.props.appState.searchQuery = this.props.params.query;
+      this.props.appState.search(this.props.params.query);
       this.shouldAutoFocus = true;
     }
   }
@@ -31,7 +31,7 @@ export class SearchBox extends Component<{params: {query: string}, appState?: Ap
   searchChanged(event: React.SyntheticEvent) {
     const target = event.target as HTMLInputElement;
     const query = target.value;
-    this.props.appState.searchQuery = query;
+    this.props.appState.search(query);
     browserHistory.replace(`/search/${query}`);
   }
 
