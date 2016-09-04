@@ -1,44 +1,23 @@
 import * as React from 'react';
 import {Component} from 'react';
-import {observer} from 'mobx-react';
-import {browserHistory} from 'react-router';
+import {observer, inject} from 'mobx-react';
+import {browserHistory, Link} from 'react-router';
 
 import {Empty} from '../Empty';
-import Contact from '../../interfaces/Contact';
+import {Contact} from '../../interfaces';
 import {ProfilePicture} from '../ProfilePicture';
-import {AppState, appState} from '../..';
+import {AppState} from '../..';
 
-class TableRow extends Component<{label: string; value: string}, {}> {
-  render() {
-    if (!this.props.value) {
-      return <tr></tr>;
-    }
-    return <tr>
-             <td>{this.props.label}</td>
-             <td>{this.props.value}</td>
-           </tr>
-  }
-}
-
+@inject('appState')
 @observer
-export class ContactDetails extends Component<{contact: Contact}, {}> {
+export class ContactDetails extends Component<{appState: AppState}, {}> {
 
   formatPhoneNumber(raw: string): string {
     return `(${raw.substr(0, 3)}) ${raw.substr(3,3)}-${raw.substr(6)}`;
   }
 
-  edit() {
-    browserHistory.push(this.props.contact.id + '/edit');
-  }
-
-  navigateToNew() {
-    appState.setSelectedContactId(null);
-
-    browserHistory.push('/new');
-  }
-
   render() {
-    const contact = this.props.contact;
+    const contact = this.props.appState.selectedContact;
 
     if (!contact) {
       return <Empty params={null} />
@@ -61,14 +40,24 @@ export class ContactDetails extends Component<{contact: Contact}, {}> {
         </table>
         <footer>
           <div className="left">
-            <button onClick={this.navigateToNew.bind(this)}>+</button>
+            <Link to="/new" />
           </div>
           <div className="right">
             <button>Delete</button>
-            <button onClick={this.edit.bind(this)}>Edit</button>
+            <Link to={contact.id + '/edit'} >Edit</Link>
           </div>
         </footer>
       </div>
     )
   }
+}
+
+function TableRow({label, value}) {
+  if (!value) {
+    return <tr></tr>;
+  }
+  return <tr>
+            <td>{label}</td>
+            <td>{value}</td>
+          </tr>
 }

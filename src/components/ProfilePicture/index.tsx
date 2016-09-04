@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Component} from 'react';
 import {computed} from 'mobx';
-import {observer} from 'mobx-react';
+import {observer, inject} from 'mobx-react';
 
 import Contact from '../../interfaces/Contact';
 
